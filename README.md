@@ -13,3 +13,22 @@ A library of applications packaged with docker compose and sane defaults, allowi
   * Synapse / Matrix Chat Server
   * Gitea
   * Collabora
+  * Wordpress
+  * DB Backup Tool
+  * Traefik
+  * Minio
+  * Unifi
+  * Smokeping
+  * Rocketchat
+  * Quassel Core
+  * Etherpad
+  * Matrix
+  * WebCron
+  * A web IDE
+
+
+## Moonshot
+  * Cluster for MySQL
+  * Cluster for Postgres
+  * Cluster for Redis
+
