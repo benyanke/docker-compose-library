@@ -1,0 +1,10 @@
+version: '3'
+
+
+# in progress - file not yet complete
+
+services:
+  ldap:
+    image: glauth/glauth:latest
+    ports:
+     - "389:389"
