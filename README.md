@@ -2,8 +2,11 @@
 
 A library of applications packaged with docker compose and sane defaults, allowing for for one-click startup and testing.
 
+Note: these have not yet been heavily tested. These files should be considered to be in beta.
+
 ## Applications
   * GLauth - a lightweight LDAP server
+  * Gitea - git server in Golang
 
 ## Applications Scheduled to be Added
 
@@ -13,7 +16,6 @@ A library of applications packaged with docker compose and sane defaults, allowi
   * Emby Media Server
   * (benyanke/ubuntu-workstation)[https://hub.docker.com/r/benyanke/ubuntu-workstation]
   * Synapse / Matrix Chat Server
-  * Gitea
   * Collabora
   * Wordpress
   * DB Backup Tool
