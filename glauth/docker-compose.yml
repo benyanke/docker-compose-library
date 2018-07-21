@@ -5,9 +5,16 @@ version: '3'
 services:
 
   ldap:
+
+    # Use me for released version
     image: glauth/glauth:latest
+
+    # Use me for dev branch / unstable version
+    # image: glauth/glauth:develop
+
     ports:
      - 389:389
      - 636:636
+
     volumes:
      - ./data/:/app/config/
