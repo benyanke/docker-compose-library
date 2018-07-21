@@ -10,4 +10,4 @@ services:
      - 389:389
      - 636:636
     volumes:
-     - ./config.cfg:/app/config/config.cfg
+     - ./data/:/app/config/
