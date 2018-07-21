@@ -4,6 +4,10 @@ A library of applications packaged with docker compose and sane defaults, allowi
 
 Note: these have not yet been heavily tested. These files should be considered to be in beta.
 
+## Usage
+
+Unless otherwise mentioned in the subdirectory's README, all apps can be run by changing to the application's subdirectory, and running `docker-compose up -d`.
+
 ## Applications
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
