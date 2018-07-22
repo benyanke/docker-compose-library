@@ -15,7 +15,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications In Progress
   * Smokeping - network latency monitoring and tracking tool
   * Unifi Controller - Ubiquity wifi controller
-  * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud)
+  * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud) - File sharing, syncing, and collaboration tool - an effective Dropbox replacement
 
 ## Applications Scheduled to be Added
 
