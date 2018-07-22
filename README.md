@@ -15,14 +15,14 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications In Progress
   * Smokeping - network latency monitoring and tracking tool
   * Unifi Controller - Ubiquity wifi controller
-  * [nextcloud](https://hub.docker.com/r/benyanke/nextcloud)
+  * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud)
 
 ## Applications Scheduled to be Added
 
   * OpenVPN Server
-  * (benyanke/taiga)[https://hub.docker.com/r/benyanke/taiga]
+  * [Taiga](https://hub.docker.com/r/benyanke/taiga)
+  * [ubuntu-workstation](https://hub.docker.com/r/benyanke/ubuntu-workstation)
   * Emby Media Server
-  * (benyanke/ubuntu-workstation)[https://hub.docker.com/r/benyanke/ubuntu-workstation]
   * Synapse / Matrix Chat Server
   * Collabora
   * Wordpress
