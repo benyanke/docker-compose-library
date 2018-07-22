@@ -11,7 +11,8 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
-  * Smokeping
+  * Smokeping - network latency monitoring and tracking tool
+  * Unifi Controller - Ubiquity wifi controller
 
 ## Applications Scheduled to be Added
 
@@ -26,7 +27,6 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * DB Backup Tool
   * Traefik
   * Minio
-  * Unifi
   * Rocketchat
   * Quassel Core
   * Etherpad
