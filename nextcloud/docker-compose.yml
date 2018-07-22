@@ -1,18 +1,21 @@
 version: '3.5'
 
+# still in progress - seeing errors during startup, need to get solr and redis working properly, 
+# among other things
+
 networks:
-  default:
-    driver: bridge
+  backend:
 
 services:
   nextcloud:
     image: benyanke/nextcloud:latest
+    restart: always
     ports:
       - 8888
-    depends_on:
-      - nextcloud-db           # If using MySQL
-      - solr                   # If using Nextant
-      - redis                  # If using Redis
+    links:
+      - db           # If using MySQL
+#      - solr                   # If using Nextant
+#      - redis                  # If using Redis
     environment:
       - UID=1000
       - GID=1000
@@ -23,21 +26,26 @@ services:
       - TZ=Europe/Berlin
       - ADMIN_USER=admin            # Don't set to configure through browser
       - ADMIN_PASSWORD=admin        # Don't set to configure through browser
-      - DOMAIN=10.10.10.10:32783
+      - DOMAIN=10.10.10.10
       - DB_TYPE=mysql
       - DB_NAME=nextcloud
       - DB_USER=nextcloud
       - DB_PASSWORD=supersecretpassword
-      - DB_HOST=nextcloud-db
+      - DB_HOST=db
     volumes:
       - ./data/data:/data
       - ./data/config:/config
       - ./data/apps:/apps2
       - ./data/themes:/nextcloud/themes
+    networks:
+      - backend
 
   # If using MySQL
-  nextcloud-db:
-    image: mariadb:10
+  db:
+    image: mariadb:latest
+    restart: always
+    networks:
+      - backend
     volumes:
       - ./data/db:/var/lib/mysql
     environment:
@@ -60,7 +68,9 @@ services:
   # If using Redis
   redis:
     image: redis:alpine
-    container_name: redis
+    restart: always
     volumes:
       - ./data/redis:/data
+    networks:
+      - backend
 
