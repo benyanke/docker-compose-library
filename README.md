@@ -11,6 +11,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
+  * Smokeping
 
 ## Applications Scheduled to be Added
 
@@ -26,7 +27,6 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Traefik
   * Minio
   * Unifi
-  * Smokeping
   * Rocketchat
   * Quassel Core
   * Etherpad

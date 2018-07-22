@@ -1,0 +1,16 @@
+version: '3'
+
+# Smokeping - a network latency and host reporting and monitoring tool
+
+services:
+
+  smokeping:
+    image: linuxserver/smokeping:latest
+    restart: always
+    environment:
+      - TZ=America/Chicago
+    ports:
+      - 80:80
+    volumes:
+      - ./data/data:/data
+      - ./data/config:/config
