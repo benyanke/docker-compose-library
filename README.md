@@ -11,12 +11,14 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
+
+## Applications In Progress
   * Smokeping - network latency monitoring and tracking tool
   * Unifi Controller - Ubiquity wifi controller
+  * [nextcloud](https://hub.docker.com/r/benyanke/nextcloud)
 
 ## Applications Scheduled to be Added
 
-  * (benyanke/nextcloud)[https://hub.docker.com/r/benyanke/nextcloud]
   * OpenVPN Server
   * (benyanke/taiga)[https://hub.docker.com/r/benyanke/taiga]
   * Emby Media Server
