@@ -16,11 +16,11 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Smokeping - network latency monitoring and tracking tool
   * Unifi Controller - Ubiquity wifi controller
   * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud) - File sharing, syncing, and collaboration tool - an effective Dropbox replacement
+  * [Taiga](https://hub.docker.com/r/benyanke/taiga)
 
 ## Applications Scheduled to be Added
 
   * OpenVPN Server
-  * [Taiga](https://hub.docker.com/r/benyanke/taiga)
   * [ubuntu-workstation](https://hub.docker.com/r/benyanke/ubuntu-workstation)
   * Emby Media Server
   * Synapse / Matrix Chat Server
