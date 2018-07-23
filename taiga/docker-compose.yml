@@ -1,0 +1,153 @@
+version: '3.5'
+
+# ALPHA - also designed to be behind traefik, not self-exposed
+
+networks:
+  proxy:
+    external:
+      name: proxy
+  internal:
+    name: internal
+
+services:
+  taiga:
+    # use 'image' to use the remote pre-built image
+    image: benyanke/taiga:latest
+
+    restart: always
+
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:80/conf.json"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 0s
+
+    expose:
+      - 80
+    depends_on:
+      - postgres
+
+      # Taiga-events
+      #- events
+      #- rabbit
+      #- redis
+    links:
+      - postgres:${CONTAINER_NAME_BASE}-db
+    labels:
+      - traefik.enable=true
+      - traefik.backend=${TAIGA_HOSTNAME}
+      - traefik.frontend.rule=Host:${TAIGA_HOSTNAME}
+      - traefik.docker.network=proxy
+      - traefik.port=80
+    networks:
+      - proxy
+      - internal
+
+
+    environment:
+      # Enable public registration
+      PUBLIC_REGISTER_ENABLED: ${PUBLIC_REGISTER_ENABLED}
+
+      DEBUG: ${DEBUG}
+      TEMPLATE_DEBUG: ${TEMPLATE_DEBUG}
+
+      TAIGA_HOSTNAME: ${TAIGA_HOSTNAME}
+
+      ALLOWED_REGISTER_DOMAINS: ${ALLOWED_REGISTER_DOMAINS}
+
+      LDAP_ENABLED: ${LDAP_ENABLED}
+      LDAP_USE_SSL: ${LDAP_USE_SSL}
+      LDAP_START_TLS: ${LDAP_START_TLS}
+      LDAP_HOST: ${LDAP_HOST}
+      LDAP_PORT: ${LDAP_PORT}
+      LDAP_BIND_DN: ${LDAP_BIND_DN}
+      LDAP_BIND_PW: ${LDAP_BIND_PW}
+      LDAP_SEARCH_BASE: ${LDAP_SEARCH_BASE}
+
+      LDAP_ALLOW_NON_LDAP_LOGIN: ${LDAP_ALLOW_NON_LDAP_LOGIN}
+
+      LDAP_ATTR_USERNAME: ${LDAP_ATTR_USERNAME}
+      LDAP_ATTR_EMAIL: ${LDAP_ATTR_EMAIL}
+      LDAP_ATTR_FULLNAME: ${LDAP_ATTR_FULLNAME}
+
+      # Database variables. Required.
+      TAIGA_DB_HOST: ${CONTAINER_NAME_BASE}-db
+      TAIGA_DB_NAME: taigadb
+      TAIGA_DB_USER: taiga
+      TAIGA_DB_PASSWORD: password
+
+      # Mail config
+      TAIGA_ENABLE_EMAIL: ${TAIGA_ENABLE_EMAIL}
+      TAIGA_EMAIL_NOTIFICATIONS_INTERVAL: ${TAIGA_EMAIL_NOTIFICATIONS_INTERVAL}
+      TAIGA_EMAIL_HOST: ${TAIGA_EMAIL_HOST}
+      TAIGA_EMAIL_FROM: ${TAIGA_EMAIL_FROM}
+      TAIGA_EMAIL_USE_TLS: ${TAIGA_EMAIL_USE_TLS}
+      TAIGA_EMAIL_PORT: ${TAIGA_EMAIL_PORT}
+      TAIGA_EMAIL_USER: ${TAIGA_EMAIL_USER}
+      TAIGA_EMAIL_PASS: ${TAIGA_EMAIL_PASS}
+
+      # DB Config
+      TAIGA_DB_HOST: ${CONTAINER_NAME_BASE}-db
+      TAIGA_DB_NAME: taigadb
+      TAIGA_DB_USER: taiga
+      TAIGA_DB_PASSWORD: password
+
+      # Secret key for encryption
+      TAIGA_SECRET_KEY: ${TAIGA_SECRET_KEY}
+
+      # Enable SSL internally, within the Docker container. Optional.
+      # This is not great. I suggest using something on top of this
+      # to enable SSL. See the example example-nginx-ssl.conf file
+      # for an alternative way to enable SSL.
+      # TAIGA_SSL: 'True'
+
+      # Enable SSL externally, preferred method
+      TAIGA_SSL_BY_REVERSE_PROXY: ${TAIGA_SSL_BY_REVERSE_PROXY}
+
+    volumes:
+      # Media and uploads directory. Required (or you will lose all uploads)
+      - ./data/media:/usr/src/taiga-back/media
+
+      # Taiga configuration directory. Makes it easier to change configuration.
+      # Typically you don't need to modify these, as they autogenerate based on env
+      # env vars on every run
+      # - ./local.py:/taiga/local.py
+      # - ./conf.json:/taiga/conf.json
+
+
+  postgres:
+ #   container_name: ${CONTAINER_NAME_BASE}-db
+    image: postgres
+    environment:
+      POSTGRES_DB: taigadb
+      POSTGRES_USER: taiga
+      POSTGRES_PASSWORD: password
+    # Uncomment this to expose the DB
+    # ports:
+    #   - 5432:5432
+    volumes:
+      # Postgres data directory. This ensures the database is not lost on container restart
+      - ./data/db:/var/lib/postgresql/data
+    restart: always
+    labels:
+      - traefik.enable=false
+    networks:
+      - internal
+
+# Note: this is not fully tested
+# To enable taiga-events, uncomment the following lines:
+#  rabbit:
+#    image: rabbitmq:3
+#    hostname: rabbit
+#  redis:
+#    image: redis:3
+#  celery:
+#    image: celery
+#    links:
+#      - rabbit
+#  events:
+#    image: benhutchins/taiga-events
+#    links:
+#      - rabbit
+
