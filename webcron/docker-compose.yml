@@ -1,0 +1,11 @@
+version: '3'
+
+# Webcron - simple place to run cron jobs.
+
+services:
+
+  webcron:
+    image: tigpt/cronjobs:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/config:/etc/crontabs/root

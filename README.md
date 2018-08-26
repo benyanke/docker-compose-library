@@ -13,6 +13,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Gitea - git server in Golang
 
 ## Applications In Progress
+  * Webcron - place to run simple cronjobs in a container (such as CURLing a url on a schedule)
   * Smokeping - network latency monitoring and tracking tool
   * Unifi Controller - Ubiquity wifi controller
   * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud) - File sharing, syncing, and collaboration tool - an effective Dropbox replacement
@@ -37,6 +38,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * WebCron
   * A web IDE
   * Apache Guacamole
+  * OnlyOffice
 
 ## Moonshot
   * Cluster for MySQL
