@@ -29,14 +29,16 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Collabora
   * Wordpress
   * DB Backup Tool
-  * Minio
-  * Rocketchat
-  * Quassel Core
+  * Minio - S3 replacement
+  * Quassel Core - IRC central client
   * Etherpad
-  * Matrix
   * A web IDE
-  * Apache Guacamole
-  * OnlyOffice
+  * Apache Guacamole - Browser-based RDP
+  * OnlyOffice - Google docs replacement
+  * Wallabag - 
+  * A remote desktop container
+  * Rocketchat - Slack replacement
+  * Cypht - webmail
 
 ## Moonshot
   * Cluster for MySQL
