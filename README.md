@@ -29,13 +29,11 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Collabora
   * Wordpress
   * DB Backup Tool
-  * Traefik
   * Minio
   * Rocketchat
   * Quassel Core
   * Etherpad
   * Matrix
-  * WebCron
   * A web IDE
   * Apache Guacamole
   * OnlyOffice
