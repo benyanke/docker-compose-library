@@ -20,6 +20,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 
 ## Applications Scheduled to be Added
 
+  * Traefik - including traefik labels added to each app in this repo for quick deployment
   * OpenVPN Server
   * [ubuntu-workstation](https://hub.docker.com/r/benyanke/ubuntu-workstation)
   * Emby Media Server
@@ -35,7 +36,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Matrix
   * WebCron
   * A web IDE
-
+  * Apache Guacamole
 
 ## Moonshot
   * Cluster for MySQL
