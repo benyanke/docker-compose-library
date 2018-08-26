@@ -1,39 +1,29 @@
 version: '3.5'
 
-# ALPHA - also designed to be behind traefik, not self-exposed
-
 networks:
   proxy:
     external:
       name: proxy
   internal:
-    name: internal
 
 services:
   taiga:
-    # use 'image' to use the remote pre-built image
     image: benyanke/taiga:latest
-
     restart: always
-
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:80/conf.json"]
       interval: 5s
       timeout: 5s
       retries: 5
       start_period: 0s
-
     expose:
       - 80
     depends_on:
       - postgres
-
-      # Taiga-events
-      #- events
-      #- rabbit
-      #- redis
+      - events
+      - rabbit
     links:
-      - postgres:${CONTAINER_NAME_BASE}-db
+      - postgres
     labels:
       - traefik.enable=true
       - traefik.backend=${TAIGA_HOSTNAME}
@@ -43,111 +33,176 @@ services:
     networks:
       - proxy
       - internal
-
-
     environment:
-      # Enable public registration
-      PUBLIC_REGISTER_ENABLED: ${PUBLIC_REGISTER_ENABLED}
+      # General
+      - PUBLIC_REGISTER_ENABLED
+      - DEBUG
+      - TEMPLATE_DEBUG
+      - TAIGA_HOSTNAME
+      - ALLOWED_REGISTER_DOMAINS
 
-      DEBUG: ${DEBUG}
-      TEMPLATE_DEBUG: ${TEMPLATE_DEBUG}
+      # LDAP
+      - LDAP_ENABLED
+      - LDAP_USE_SSL
+      - LDAP_START_TLS
+      - LDAP_HOST
+      - LDAP_PORT
+      - LDAP_BIND_DN
+      - LDAP_BIND_PW
+      - LDAP_SEARCH_BASE
+      - LDAP_ALLOW_NON_LDAP_LOGIN
+      - LDAP_ATTR_USERNAME
+      - LDAP_ATTR_EMAIL
+      - LDAP_ATTR_FULLNAME
 
-      TAIGA_HOSTNAME: ${TAIGA_HOSTNAME}
+      # - Database config
+      - TAIGA_DB_HOST
+      - TAIGA_DB_NAME
+      - TAIGA_DB_USER
+      - TAIGA_DB_PASSWORD
 
-      ALLOWED_REGISTER_DOMAINS: ${ALLOWED_REGISTER_DOMAINS}
-
-      LDAP_ENABLED: ${LDAP_ENABLED}
-      LDAP_USE_SSL: ${LDAP_USE_SSL}
-      LDAP_START_TLS: ${LDAP_START_TLS}
-      LDAP_HOST: ${LDAP_HOST}
-      LDAP_PORT: ${LDAP_PORT}
-      LDAP_BIND_DN: ${LDAP_BIND_DN}
-      LDAP_BIND_PW: ${LDAP_BIND_PW}
-      LDAP_SEARCH_BASE: ${LDAP_SEARCH_BASE}
-
-      LDAP_ALLOW_NON_LDAP_LOGIN: ${LDAP_ALLOW_NON_LDAP_LOGIN}
-
-      LDAP_ATTR_USERNAME: ${LDAP_ATTR_USERNAME}
-      LDAP_ATTR_EMAIL: ${LDAP_ATTR_EMAIL}
-      LDAP_ATTR_FULLNAME: ${LDAP_ATTR_FULLNAME}
-
-      # Database variables. Required.
-      TAIGA_DB_HOST: ${CONTAINER_NAME_BASE}-db
-      TAIGA_DB_NAME: taigadb
-      TAIGA_DB_USER: taiga
-      TAIGA_DB_PASSWORD: password
-
-      # Mail config
-      TAIGA_ENABLE_EMAIL: ${TAIGA_ENABLE_EMAIL}
-      TAIGA_EMAIL_NOTIFICATIONS_INTERVAL: ${TAIGA_EMAIL_NOTIFICATIONS_INTERVAL}
-      TAIGA_EMAIL_HOST: ${TAIGA_EMAIL_HOST}
-      TAIGA_EMAIL_FROM: ${TAIGA_EMAIL_FROM}
-      TAIGA_EMAIL_USE_TLS: ${TAIGA_EMAIL_USE_TLS}
-      TAIGA_EMAIL_PORT: ${TAIGA_EMAIL_PORT}
-      TAIGA_EMAIL_USER: ${TAIGA_EMAIL_USER}
-      TAIGA_EMAIL_PASS: ${TAIGA_EMAIL_PASS}
-
-      # DB Config
-      TAIGA_DB_HOST: ${CONTAINER_NAME_BASE}-db
-      TAIGA_DB_NAME: taigadb
-      TAIGA_DB_USER: taiga
-      TAIGA_DB_PASSWORD: password
-
+      # - Mail config
+      - TAIGA_ENABLE_EMAIL
+      - TAIGA_EMAIL_NOTIFICATIONS_INTERVAL
+      - TAIGA_EMAIL_HOST
+      - TAIGA_EMAIL_FROM
+      - TAIGA_EMAIL_USE_TLS
+      - TAIGA_EMAIL_PORT
+      - TAIGA_EMAIL_USER
+      - TAIGA_EMAIL_PASS
+ 
       # Secret key for encryption
-      TAIGA_SECRET_KEY: ${TAIGA_SECRET_KEY}
+      - TAIGA_SECRET_KEY
 
-      # Enable SSL internally, within the Docker container. Optional.
-      # This is not great. I suggest using something on top of this
-      # to enable SSL. See the example example-nginx-ssl.conf file
-      # for an alternative way to enable SSL.
-      # TAIGA_SSL: 'True'
-
+      # Websockets config
+      - TAIGA_EVENTS_ENABLE
+ 
       # Enable SSL externally, preferred method
-      TAIGA_SSL_BY_REVERSE_PROXY: ${TAIGA_SSL_BY_REVERSE_PROXY}
+      - TAIGA_SSL_BY_REVERSE_PROXY
+
+      # Events via Websockets
+      - EVENT_PORT
+      - EVENT_USER
+      - EVENT_PW
+      - EVENT_HOST
+      - EVENT_VHOST
+      - EVENT_RABBITPORT
 
     volumes:
       # Media and uploads directory. Required (or you will lose all uploads)
-      - ./data/media:/usr/src/taiga-back/media
+      - ./media:/usr/src/taiga-back/media
 
-      # Taiga configuration directory. Makes it easier to change configuration.
-      # Typically you don't need to modify these, as they autogenerate based on env
-      # env vars on every run
-      # - ./local.py:/taiga/local.py
-      # - ./conf.json:/taiga/conf.json
-
+# Used if you need direct DB query access temporarily
+#  pgclient:
+#    image: jbergknoff/postgresql-client
+#    depends_on:
+#      - postgres
+#    environment:
+#      - POSTGRES_DB=${TAIGA_DB_NAME}
+#      - POSTGRES_USER=${TAIGA_DB_USER}
+#      - POSTGRES_PASSWORD=${TAIGA_DB_PASSWORD}
+#    links:
+#      - postgres:${CONTAINER_NAME_BASE}
+#    networks:
+#      - internal
 
   postgres:
- #   container_name: ${CONTAINER_NAME_BASE}-db
     image: postgres
+    labels:
+      - traefik.enable=false
     environment:
-      POSTGRES_DB: taigadb
-      POSTGRES_USER: taiga
-      POSTGRES_PASSWORD: password
-    # Uncomment this to expose the DB
-    # ports:
-    #   - 5432:5432
+      - POSTGRES_DB=${TAIGA_DB_NAME}
+      - POSTGRES_USER=${TAIGA_DB_USER}
+      - POSTGRES_PASSWORD=${TAIGA_DB_PASSWORD}
     volumes:
-      # Postgres data directory. This ensures the database is not lost on container restart
-      - ./data/db:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "--dbname=taigadb", "--username=taiga"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 0s
     labels:
       - traefik.enable=false
     networks:
       - internal
 
-# Note: this is not fully tested
-# To enable taiga-events, uncomment the following lines:
-#  rabbit:
-#    image: rabbitmq:3
-#    hostname: rabbit
+  events:
+    image: benyanke/taiga-events:latest
+    restart: always
+    networks:
+      - internal
+    environment:
+      - TAIGA_SECRET_KEY
+      - EVENT_PORT
+      - EVENT_USER
+      - EVENT_PW
+      - EVENT_HOST
+      - EVENT_VHOST
+      - EVENT_RABBITPORT
+    labels:
+      - traefik.enable=false
+    expose:
+      - 80
+    healthcheck:
+      test: ["CMD", "/healthcheck.sh"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 0s
+    links:
+      - rabbit
+
+  # Backend for events
+  rabbit:
+    image: rabbitmq:3-alpine
+    restart: always
+    expose:
+      - 5672
+    labels:
+      - traefik.enable=false
+    environment:
+      - RABBITMQ_DEFAULT_VHOST=${EVENT_VHOST}
+      - RABBITMQ_DEFAULT_USER=${EVENT_USER}
+      - RABBITMQ_DEFAULT_PASS=${EVENT_PW}
+    networks:
+      - internal
+    healthcheck:
+        test: ["CMD", "rabbitmqctl","status"]
+        interval: 30s
+        timeout: 5s
+        retries: 3
+
+
+# Used for async events - still need to get this working properly - will accept PRs for this
+# 
 #  redis:
 #    image: redis:3
-#  celery:
-#    image: celery
-#    links:
-#      - rabbit
-#  events:
-#    image: benhutchins/taiga-events
-#    links:
-#      - rabbit
+#    restart: always
+#    labels:
+#      - traefik.enable=false
+#    networks:
+#      - eventnet
+#    healthcheck:
+#        test: ["CMD", "redis-cli","ping"]
+#        interval: 30s
+#        timeout: 5s
+#        retries: 3
+
+  #celery:
+  #  image: celery
+  #  links:
+  #    - rabbit
+  #  restart: always
+  #  labels:
+  #    - traefik.enable=false
+  #  networks:
+  #    - eventnet
+  #  healthcheck:
+  #    test: ["CMD", "celery","inspect","ping"]
+  #    interval: 30s
+  #    timeout: 5s
+  #    retries: 3
+  #    start_period: 5s
 
