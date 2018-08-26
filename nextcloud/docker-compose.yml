@@ -17,17 +17,20 @@ services:
 #      - solr                   # If using Nextant
 #      - redis                  # If using Redis
     environment:
-      - UID=1000
-      - GID=1000
-      - UPLOAD_MAX_SIZE=10G
-      - APC_SHM_SIZE=128M
-      - OPCACHE_MEM_SIZE=128
-      - CRON_PERIOD=15m
-      - TZ=Europe/Berlin
       - ADMIN_USER=admin            # Don't set to configure through browser
       - ADMIN_PASSWORD=admin        # Don't set to configure through browser
       - DOMAIN=10.10.10.10
+
+      # Probably don't need to adjust below here
+      - UID=1000
+      - GID=1000
+      - UPLOAD_MAX_SIZE=100G
+      - APC_SHM_SIZE=128M
+      - OPCACHE_MEM_SIZE=128
+      - CRON_PERIOD=5m
+      - TZ=America/Chicago
       - DB_TYPE=mysql
+      # If you change this, adjust below in 'db' container too
       - DB_NAME=nextcloud
       - DB_USER=nextcloud
       - DB_PASSWORD=supersecretpassword
@@ -56,7 +59,7 @@ services:
 
   # If using Nextant
 #  solr:
-#    image: solr:6-alpine
+#    image: solr:7-alpine
 #    container_name: solr
 #    volumes:
 #      - ./data/solr:/opt/solr/server/solr/mycores
