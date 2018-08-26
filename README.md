@@ -39,6 +39,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * A remote desktop container
   * Rocketchat - Slack replacement
   * Cypht - webmail
+  * Firefox bookmarks sync server
 
 ## Moonshot
   * Cluster for MySQL
