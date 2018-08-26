@@ -8,4 +8,4 @@ services:
     image: tigpt/cronjobs:latest
     restart: unless-stopped
     volumes:
-      - ./data/config:/etc/crontabs/root
+      - ./data/config:/etc/crontabs
