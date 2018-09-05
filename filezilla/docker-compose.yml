@@ -15,10 +15,9 @@ services:
     environment:
       - KEEP_APP_RUNNING=1
 
-      # Adjust as needed - defaults for 
-      # best display in chromium on an x220
-      - DISPLAY_WIDTH=1366
-      - DISPLAY_HEIGHT=637
+      # Adjust as needed
+      - DISPLAY_WIDTH=1800
+      - DISPLAY_HEIGHT=900
 
       # Uncomment to enable password protection
       # - VNC_PASSWORD=ChangeMe
