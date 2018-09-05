@@ -1,0 +1,32 @@
+version: '3'
+
+# Filezilla - FTP client in a web browser
+
+services:
+
+  filezilla:
+    image: jlesage/filezilla:latest
+    restart: unless-stopped
+    ports:
+      # Web Access
+      - 5900:5900
+      # VNC Access
+      - 5800:5800
+    environment:
+      - KEEP_APP_RUNNING=1
+
+      # Adjust as needed - defaults for 
+      # best display in chromium on an x220
+      - DISPLAY_WIDTH=1366
+      - DISPLAY_HEIGHT=637
+
+      # Uncomment to enable password protection
+      # - VNC_PASSWORD=ChangeMe
+    volumes:
+      - ./data/config:/config
+
+      # Storage mount for the directories
+      # available on the "local" half of 
+      # the FTP client. By default, 
+      # your home directory (~/)
+      - ~/:/storage

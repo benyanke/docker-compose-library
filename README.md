@@ -11,6 +11,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
 ## Applications
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
+  * Filezilla - FTP / SFTP / FTPS client in docker, over VNC
 
 ## Applications In Progress
   * Webcron - place to run simple cronjobs in a container (such as CURLing a url on a schedule)
