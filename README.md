@@ -41,6 +41,8 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Rocketchat - Slack replacement
   * Cypht - webmail
   * Firefox bookmarks sync server
+  * TinyTiny RSS
+  * Radicale
 
 ## Moonshot
   * Cluster for MySQL
