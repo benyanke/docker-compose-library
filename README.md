@@ -44,6 +44,8 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * TinyTiny RSS
   * Radicale
   * [NAV Network Admin](https://github.com/Uninett/nav)
+  * Watchtower - docker auto upgrade
+
 ## Moonshot
   * Cluster for MySQL
   * Cluster for Postgres
