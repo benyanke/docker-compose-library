@@ -43,7 +43,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Firefox bookmarks sync server
   * TinyTiny RSS
   * Radicale
-
+  * [NAV Network Admin](https://github.com/Uninett/nav)
 ## Moonshot
   * Cluster for MySQL
   * Cluster for Postgres
