@@ -12,6 +12,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * GLauth - a lightweight LDAP server
   * Gitea - git server in Golang
   * Filezilla - FTP / SFTP / FTPS client in docker, over VNC
+  * Watchtower - Docker auto upgrades
 
 ## Applications In Progress
   * Webcron - place to run simple cronjobs in a container (such as CURLing a url on a schedule)
@@ -44,7 +45,6 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * TinyTiny RSS
   * Radicale
   * [NAV Network Admin](https://github.com/Uninett/nav)
-  * Watchtower - docker auto upgrade
 
 ## Moonshot
   * Cluster for MySQL
