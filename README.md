@@ -52,3 +52,9 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Cluster for Postgres
   * Cluster for Redis
 
+
+
+
+
+See also this for more ideas:
+https://github.com/benyanke/templates/tree/master
