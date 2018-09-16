@@ -45,6 +45,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * TinyTiny RSS
   * Radicale
   * [NAV Network Admin](https://github.com/Uninett/nav)
+  * Agendav - CalDav web interface, similar to Google Calendar
 
 ## Moonshot
   * Cluster for MySQL
