@@ -20,6 +20,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Unifi Controller - Ubiquity wifi controller
   * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud) - File sharing, syncing, and collaboration tool - an effective Dropbox replacement
   * [Taiga](https://hub.docker.com/r/benyanke/taiga) - Agile project management tool
+  * DavMail
 
 ## Applications Scheduled to be Added
 
@@ -52,3 +53,9 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Cluster for Postgres
   * Cluster for Redis
 
+
+
+
+
+See also this for more ideas:
+https://github.com/benyanke/templates/tree/master

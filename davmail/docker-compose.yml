@@ -1,0 +1,21 @@
+version: '3'
+
+# DavMail - an Exchange-to-imap gateway
+
+services:
+
+  davmail:
+    image: timonier/davmail
+    restart: unless-stopped
+    network_mode: host
+    ports:
+      - 2143:2143
+    environment:
+      - PORT_CALDAV=2080
+      - PORT_IMAP=2143
+      - PORT_LDAP=2389
+      - PORT_POP=2110
+      - PORT_SMTP=2025
+      - URL=https://mail.example.com/EWS/Exchange.asmx
+#    volumes:
+#      - ./data/config:/etc/davmail
