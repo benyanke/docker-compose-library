@@ -1,0 +1,15 @@
+version: '3'
+
+# FreeRADIUS - authentication server
+
+services:
+
+  freeradius:
+    image: freeradius/freeradius-server:latest
+    restart: always
+    ports:
+      - 1812:1812/udp
+      - 1813:1813/udp
+    volumes:
+      - ./data/clients.conf:/etc/freeradius/clients.conf
+      - ./data/ldap:/etc/freeradius/modules/ldap

@@ -21,6 +21,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * [NextCloud](https://hub.docker.com/r/benyanke/nextcloud) - File sharing, syncing, and collaboration tool - an effective Dropbox replacement
   * [Taiga](https://hub.docker.com/r/benyanke/taiga) - Agile project management tool
   * DavMail
+  * FreeRadius - RADIUS authentication server
 
 ## Applications Scheduled to be Added
 
