@@ -1,0 +1,17 @@
+version: '3'
+
+# Emby - Centralized media server
+
+services:
+
+  emby:
+    image: emby/embyserver:latest
+    restart: always
+    environment:
+      - APP_UID=99
+      - APP_GID=100
+    ports:
+      - 8096:8096
+    volumes:
+      - ./data/media:/mnt
+      - ./data/config:/config

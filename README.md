@@ -13,6 +13,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Gitea - git server in Golang
   * Filezilla - FTP / SFTP / FTPS client in docker, over VNC
   * Watchtower - Docker auto upgrades
+  * Emby - Media server
 
 ## Applications In Progress
   * Webcron - place to run simple cronjobs in a container (such as CURLing a url on a schedule)
@@ -22,7 +23,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * [Taiga](https://hub.docker.com/r/benyanke/taiga) - Agile project management tool
   * DavMail
   * FreeRadius - RADIUS authentication server
-
+  
 ## Applications Scheduled to be Added
 
   * Traefik - including traefik labels added to each app in this repo for quick deployment
