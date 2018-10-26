@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  photoprism:
+    image: photoprism/photoprism # use pre-built image from docker hub: https://hub.docker.com/r/photoprism/photoprism/
+    restart: always
+    ports:
+      - 2342:80 # left side is your local port (change if port 2342 is already used or you want to use port 80)
+    volumes:
+      - ~/tmp/pictures:/Photos # change ~/Photos to whatever directory you want to use on your local computer
+      - photoprism-thumbnails:/var/photoprism/thumbnails # keep this (thumbnail cache)
+    environment:
+      PHOTOPRISM_IMPORT_PATH: "/Photos/Import" # ~/Photos/Import (files to be imported to originals)
+      PHOTOPRISM_EXPORT_PATH: "/Photos/Export" # ~/Photos/Export (files exported from originals)
+      PHOTOPRISM_ORIGINALS_PATH: "/Photos/Originals" # ~/Photos/Originals (original jpeg, raw and meta files)
+
+  database: # keep this
+    image: mysql:latest
+    restart: always
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=1024
+    volumes:
+      - photoprism-database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: photoprism
+      MYSQL_USER: photoprism
+      MYSQL_PASSWORD: photoprism
+      MYSQL_DATABASE: photoprism
+
+volumes: # keep this
+  photoprism-thumbnails:
+    driver: local
+  photoprism-database:
+    driver: local

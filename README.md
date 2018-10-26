@@ -23,6 +23,8 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * [Taiga](https://hub.docker.com/r/benyanke/taiga) - Agile project management tool
   * DavMail
   * FreeRadius - RADIUS authentication server
+  * Photoprism - google photos alternative
+  * Passbolt - Web password manager
   
 ## Applications Scheduled to be Added
 
