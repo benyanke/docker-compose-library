@@ -53,6 +53,7 @@ Unless otherwise mentioned in the subdirectory's README, all apps can be run by 
   * Agendav - CalDav web interface, similar to Google Calendar
   * Wekan
   * Promethius
+  * routr sip server
 
 ## Moonshot
   * Cluster for MySQL
