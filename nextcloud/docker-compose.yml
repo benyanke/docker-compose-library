@@ -12,6 +12,13 @@ services:
     restart: always
     ports:
       - 8888
+    labels:
+      - traefik.enable=true
+      # TODO: Update your domain here
+      - traefik.backend=example.com
+      - traefik.frontend.rule=Host:example.com
+      - traefik.docker.network=proxy
+      - traefik.port=8888
     links:
       - db           # If using MySQL
 #      - solr                   # If using Nextant

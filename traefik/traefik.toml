@@ -1,0 +1,74 @@
+# debug = true
+
+logLevel = "ERROR"
+# logLevel = "DEBUG"
+
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "YOURDOMAIN.COM"
+watch = true
+exposedByDefault = false
+
+
+[acme]
+email = "YOUREMAIL@EXAMPLE.COM"
+storage = "/data/acme.json"
+entryPoint = "https"
+onHostRule = true
+[acme.httpChallenge]
+  entryPoint = "http"
+
+
+
+# Add non-docker backends here
+
+#[backends]
+#  [backends.backend-pihole]
+#    [backends.backend-pihole.servers]
+#      [backends.backend-pihole.servers.server-pihole-ext]
+#        url = "http://192.168.1.2"
+#        weight = 0
+
+
+# [frontends]
+#  [frontends.frontend-pihole]
+#    backend = "backend-pihole"
+#    passHostHeader = true
+#    InsecureSkipVerify = true
+#    [frontends.frontend-pihole.routes]
+#      [frontends.frontend-pihole.routes.route-pihole-ext]
+#        rule = "Host:yourhost.duckdns.org"
+
+
+#[web]
+#entrypoint="dash"
+
+# To enable basic auth on the webui
+# with 2 user/pass: test:test and test2:test2
+# Passwords can be encoded in MD5, SHA1 and BCrypt: you can use htpasswd to generate those ones
+# [web.auth.basic]
+#    users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/", "test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0"]
+
+
+
+
+#[web]
+# address = ":8080"
+# readOnly = true
+
+# [web.auth.basic]
+#    users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/", "test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0"]
+
