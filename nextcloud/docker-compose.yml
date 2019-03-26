@@ -28,6 +28,7 @@ services:
       - traefik.port=8888
     links:
       - db           # If using MySQL
+      - collabora    # If using document server
 #      - solr                   # If using Nextant
 #      - redis                  # If using Redis
     environment:
@@ -82,6 +83,20 @@ services:
 #      - solr-precreate
 #      - nextant
 
+  # If using Nextant
+  collabora:
+    image: collabora/code:latest
+    restart: always
+    ports:
+      - 9980
+    environment:
+      # update this with your NC domain
+      - DOMAIN=example.com 
+    volumes:
+      - ./data/collabora:/opt/solr/server/solr/mycores
+    networks:
+      - backend
+
   # If using Redis
   redis:
     image: redis:alpine
@@ -90,4 +105,3 @@ services:
       - ./data/redis:/data
     networks:
       - backend
-
