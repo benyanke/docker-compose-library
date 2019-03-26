@@ -12,11 +12,18 @@ services:
     restart: always
     ports:
       - 8888
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     labels:
       - traefik.enable=true
       # TODO: Update your domain here
       - traefik.backend=example.com
       - traefik.frontend.rule=Host:example.com
+      - traefik.backend.healthcheck.hostname=example.com
       - traefik.docker.network=proxy
       - traefik.port=8888
     links:
