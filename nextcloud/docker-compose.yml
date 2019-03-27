@@ -87,6 +87,8 @@ services:
   docs:
     image: onlyoffice/documentserver:latest
     restart: always
+    expose:
+      - 80
     ports:
       - 80
 #    environment:
