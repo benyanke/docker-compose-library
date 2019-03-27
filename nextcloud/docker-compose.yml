@@ -28,7 +28,7 @@ services:
       - traefik.port=8888
     links:
       - db           # If using MySQL
-      - collabora    # If using document server
+      - docs         # If using document server
 #      - solr                   # If using Nextant
 #      - redis                  # If using Redis
     environment:
