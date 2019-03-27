@@ -84,18 +84,23 @@ services:
 #      - nextant
 
   # If using Nextant
-  collabora:
-    image: collabora/code:latest
+  docs:
+    image: onlyoffice/documentserver:latest
     restart: always
     ports:
-      - 9980
-    environment:
+      - 80
+#    environment:
       # update this with your NC domain
-      - DOMAIN=example.com 
+#      - DOMAIN=example.com 
     volumes:
-      - ./data/collabora:/opt/solr/server/solr/mycores
+      - ./data/docs/logs:/var/log/onlyoffice
+      - ./data/docs/certs:/var/www/onlyoffice/Data
+      - ./data/docs/cache:/var/lib/onlyoffice
+      - ./data/docs/db:/var/lib/postgresql
     networks:
       - backend
+
+# TODO: Look at seperate redis, postgres for this. Maybe another whole stack.
 
   # If using Redis
   redis:
