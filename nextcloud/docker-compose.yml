@@ -8,7 +8,7 @@ networks:
 
 services:
   nextcloud:
-    image: benyanke/nextcloud:latest
+    image: benyanke/nextcloud:16
     restart: always
     ports:
       - 8888
